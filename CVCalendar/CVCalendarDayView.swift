@@ -538,6 +538,10 @@ extension CVCalendarDayView {
             selectionView = CVAuxiliaryView(dayView: self, rect: dayLabel.bounds, shape: shape)
         }
         
+        // by Pongtep Pakakat
+        // ทำให้ selectionView ใหญ่ขึ้น
+        selectionView!.frame = CGRect(x: dayLabel.frame.origin.x - 2, y: dayLabel.frame.origin.y - 4, width: dayLabel.frame.size.width + 4, height: dayLabel.frame.size.height + 4)
+        
         selectionView!.fillColor = backgroundColor
         selectionView!.alpha = backgroundAlpha
         selectionView!.setNeedsDisplay()
