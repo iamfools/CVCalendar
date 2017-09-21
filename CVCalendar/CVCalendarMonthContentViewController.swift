@@ -249,6 +249,9 @@ public final class CVCalendarMonthContentViewController: CVCalendarContentViewCo
     }
 
     fileprivate var togglingBlocked = false
+    
+    // Method นี้ถูกแก้ไขให้แสดง วันที่เลือกปัจจุบันตลอดเวลา
+    // by Pongtep Pakakat
     public override func togglePresentedDate(_ date: Foundation.Date) {
         let calendar = self.calendarView.delegate?.calendar?() ?? Calendar.current
 
@@ -263,8 +266,16 @@ public final class CVCalendarMonthContentViewController: CVCalendarContentViewCo
         // selectedDayView would be nil if shouldAutoSelectDayOnMonthChange returns false
         // we want to still allow the user to toggle to a date even if there is nothing selected
         if let selectedDate = calendarView.coordinator.selectedDayView?.date {
-            isMatchedDays = matchedDays(selectedDate, presentedDate)
-            isMatchedMonths = matchedMonths(presentedDate, selectedDate)
+            // ถูกกแก้ไขให้แสดง วันที่เลือกปัจจุบันตลอดเวลา โดย isMatchedDays,isMatchedMonths เป็น false เสมอ
+            // Code เดิม จะเป็นตาม Code ที่ Comment ไว้ด้านล่างนี้
+            /* Original :
+                isMatchedDays = matchedDays(selectedDate, presentedDate)
+                isMatchedMonths = matchedMonths(presentedDate, selectedDate)
+            */   
+            // by Pongtep Pakakat
+            
+//            isMatchedDays = matchedDays(selectedDate, presentedDate)
+//            isMatchedMonths = matchedMonths(presentedDate, selectedDate)
         }
 
         if !isMatchedDays && !togglingBlocked {
@@ -284,8 +295,16 @@ public final class CVCalendarMonthContentViewController: CVCalendarContentViewCo
                 presentedMonthView = currentMonthView
 
                 calendarView.presentedDate = CVDate(date: date, calendar: calendar)
-
+                
+            // ถูกกแก้ไขให้ Duration = 0.0
+            // Code เดิม จะเป็นตาม Code ที่ Comment ไว้ด้านล่างนี้
+            /* Original :
                 UIView.animate(withDuration: toggleDateAnimationDuration, delay: 0,
+            */    
+            // by Pongtep Pakakat
+                
+//                UIView.animate(withDuration: toggleDateAnimationDuration, delay: 0,
+                UIView.animate(withDuration: 0.0, delay: 0,
                                options: UIViewAnimationOptions(),
                                animations: {
                     presentedMonth.alpha = 0
