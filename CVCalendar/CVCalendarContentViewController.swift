@@ -63,7 +63,7 @@ open class CVCalendarContentViewController: UIViewController {
 // MARK: - UI Refresh
 
 extension CVCalendarContentViewController {
-    public func updateFrames(_ frame: CGRect) {
+    @objc public func updateFrames(_ frame: CGRect) {
         if frame != CGRect.zero {
             scrollView.frame = frame
             scrollView.removeAllSubviews()
@@ -126,15 +126,15 @@ extension CVCalendarContentViewController: UIScrollViewDelegate { }
 
 // Convenience API.
 extension CVCalendarContentViewController {
-    public func performedDayViewSelection(_ dayView: DayView) { }
+    @objc public func performedDayViewSelection(_ dayView: DayView) { }
 
-    public func togglePresentedDate(_ date: Foundation.Date) { }
+    @objc public func togglePresentedDate(_ date: Foundation.Date) { }
 
-    public func presentNextView(_ view: UIView?) { }
+    @objc public func presentNextView(_ view: UIView?) { }
 
-    public func presentPreviousView(_ view: UIView?) { }
+    @objc public func presentPreviousView(_ view: UIView?) { }
 
-    public func updateDayViews(shouldShow: Bool) { }
+    @objc public func updateDayViews(shouldShow: Bool) { }
 }
 
 // MARK: - Contsant conversion
@@ -224,12 +224,12 @@ extension CVCalendarContentViewController {
 
 
             for constraintIn in calendarView.constraints where
-                constraintIn.firstAttribute == NSLayoutAttribute.height {
+                constraintIn.firstAttribute == NSLayoutConstraint.Attribute.height {
                     constraintIn.constant = height
 
                     if animated {
                         UIView.animate(withDuration: 0.2, delay: 0,
-                                                   options: UIViewAnimationOptions.curveLinear,
+                                       options: UIView.AnimationOptions.curveLinear,
                                                    animations: { [weak self] in
                             self?.layoutViews(viewsToLayout, toHeight: height)
                         }) { [weak self] _ in
